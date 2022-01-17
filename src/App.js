@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css'
+import { Link, Route } from "wouter"
 import Home from './pages/Home'
 import SearchResults from './pages/SearchResults'
 import Detail from './pages/Detail'
 import Pepito from './context/StaticContext'
 import {GifsContextProvider} from './context/GifsContext'
-import { Link, Route } from "wouter"
+import './App.css'
 
 export default function App() {
   return (

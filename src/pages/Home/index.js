@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from "react"
-import { Link, useLocation } from "wouter"
-import getGifs from '../../services/getGifs'
-import ListOfGifs from '../../components/ListOfGifs'
-import Category from '../../components/Category'
-import {useGifs} from '../../hooks/useGifs'
+import React, { useState } from "react"
+import { useLocation } from "wouter"
+import ListOfGifs from 'components/ListOfGifs'
+import {useGifs} from 'hooks/useGifs'
+import LazyTrendingSearches from "components/TrendingSearches"
 
-const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
+//const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
 
 export default function Home() {
   const [keyword, setKeyword] = useState('')
-  const [path, pushLocation] = useLocation()
-  const {loading, gifs} = useGifs()
+  const [, pushLocation] = useLocation()
+  const {gifs} = useGifs()
 
   const handleSubmit = evt => {
     evt.preventDefault()
@@ -34,14 +33,7 @@ export default function Home() {
           <ListOfGifs gifs={gifs} />
         </div>
         <div className="App-category">
-          <Category
-            name="Categorias populares"
-            options={POPULAR_GIFS}
-          />
-          <Category
-            name="Mascotas"
-            options={['Perros', 'Gatos', 'Hamster']}
-          />
+          <LazyTrendingSearches />
         </div>
       </div>
     </>
