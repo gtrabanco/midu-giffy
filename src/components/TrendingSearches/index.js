@@ -10,7 +10,11 @@ export default function LazyTrendingSearches() {
   return (
     <div ref={fromRef}>
       <Suspense fallback={<Spinner />}>
-        { isNearScreen ? <TrendingSearches />: <Spinner /> }
+        {
+          isNearScreen ?
+            <TrendingSearches />:
+            ""
+        }
       </Suspense>
     </div>
   )

@@ -26,7 +26,7 @@ export function useGifs ({ keyword, pageResults } = { keyword: null, pageResults
   }, [keyword, keywordToUse, setGifs])
 
   useEffect(function () {
-    if( page === INITIAL_PAGE || ! loading) return
+    if( page === INITIAL_PAGE ) return
 
     setLoadingNextPage(true);
 
@@ -38,7 +38,7 @@ export function useGifs ({ keyword, pageResults } = { keyword: null, pageResults
         setGifs(prevGifs => prevGifs.concat(nextGifs));
         setLoadingNextPage(false);
       })
-  }, [keywordToUse, setGifs, page, loading])
+  }, [keywordToUse, setGifs, page])
 
-  return {loading, loadingNextPage, gifs, setPage}
+  return {loading, loadingNextPage, gifs, setPage, page}
 }

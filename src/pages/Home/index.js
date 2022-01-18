@@ -4,6 +4,8 @@ import ListOfGifs from 'components/ListOfGifs'
 import {useGifs} from 'hooks/useGifs'
 import LazyTrendingSearches from "components/TrendingSearches"
 
+import './style.css'
+
 //const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
 
 export default function Home() {
