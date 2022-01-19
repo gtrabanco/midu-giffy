@@ -1,7 +1,7 @@
 .ListOfGifs {
   display: grid;
   gap: 0 1rem;
-  grid-template-columns: repeat(auto-fill ,minmax(min(25%, 22rem), 1fr));
+  grid-template-columns: repeat(auto-fill ,minmax(min(100%, 22rem), 1fr));
   grid-template-rows: masonry;
   break-inside: avoid-column;
   grid-auto-rows: min-content;
