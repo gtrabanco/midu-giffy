@@ -8,6 +8,7 @@ import LazyTrendingSearches from "components/TrendingSearches"
 import SearchForm from "components/SearchForm/index"
 
 import './style.css'
+import { Helmet } from "react-helmet-async"
 
 //const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
 
@@ -21,6 +22,9 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Giffy | Home</title>
+      </Helmet>
       <SearchForm onSubmit={handleSubmit} />
       <div className="App-main">
         <div className="App-results">

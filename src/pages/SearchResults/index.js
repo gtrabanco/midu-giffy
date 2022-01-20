@@ -10,6 +10,8 @@ import ListOfGifs from 'components/ListOfGifs'
 import LazyTrendingSearches from 'components/TrendingSearches'
 //import debounce from 'lib/debounce'
 import throttle from 'lib/throttle'
+import { Helmet } from 'react-helmet-async'
+// import {useTitle} from 'hooks/useSeo'
 
 export default function SearchResults ({ params }) {
   const { keyword } = params
@@ -19,6 +21,11 @@ export default function SearchResults ({ params }) {
     externalRef: loading ? null : externalRef,
     once: false
   });
+
+  // useTitle({
+  //   title: `showing ${gifs.length} results of ${keyword}`,
+  //   description: `Showing results for ${keyword} search`
+  // })
 
   //const handleNextPage = () => setPage(prevPage => prevPage + 1);
   // const debounceHandleNextPage = useCallback(
@@ -37,6 +44,11 @@ export default function SearchResults ({ params }) {
   }, [isNearScreen, throttleHandleNextPage])
 
   return <>
+    <Helmet>
+      <title>{`Giffy | Showing ${gifs.length} results of ${keyword}`}</title>
+      <meta name="description" content={`Showing results for ${keyword} search`} />
+      <link rel="canonical" href={`http://localhost:3000/search/${keyword}`} />
+    </Helmet>
     {loading
       ? <Spinner />
       : <>
