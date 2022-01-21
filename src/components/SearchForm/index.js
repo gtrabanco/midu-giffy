@@ -1,23 +1,32 @@
-import React, { useState } from "react"
+import React from "react"
+import { useLocation } from "wouter"
+import { RATINGS } from 'services/getGifs';
+import { useSearchForm } from 'hooks/useSearchForm'
 
-function SearchForm({onSubmit}) {
-  const [keyword, setKeyword] = useState('')
+function SearchForm({initialKeyword = '', initialRating = RATINGS[0]}) {
+  const {keyword, rating, times, updateKeyword, updateRating } = useSearchForm({initialKeyword, initialRating})
 
-  const handleSubmit = evt => {
+  const [, pushLocation] = useLocation()
+
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({keyword});
+    pushLocation(`/search/${keyword}/${rating}`);
   }
 
-  const handleChange = evt => {
-    setKeyword(evt.target.value)
-  }
+  const handleUpdateKeyword = event => updateKeyword(event.target?.value);
+  const handleUpdateRating  = event => updateRating(event.target.value);
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <button>Buscar</button>
-        <input placeholder="Search a gif here..." onChange={handleChange} type='text' value={keyword} />
+        <input placeholder="Search a gif here..." onChange={handleUpdateKeyword} type='text' value={keyword} />
+        <select onChange={handleUpdateRating} value={rating}>
+          <option disabled>Rating type</option>
+          {RATINGS.map(rating => <option key={rating}>{rating.toUpperCase()}</option>)}
+        </select>
       </form>
+      <small>{times}</small>
     </>
   )
 }

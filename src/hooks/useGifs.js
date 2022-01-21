@@ -1,10 +1,13 @@
 import {useContext, useEffect, useState} from 'react'
 import getGifs from 'services/getGifs'
 import GifsContext from 'context/GifsContext'
+import { RATINGS } from 'services/getGifs';
 
 const INITIAL_PAGE = 0;
 
-export function useGifs ({ keyword, pageResults } = { keyword: null, pageResults: 10 }) {
+//keyword: null, pageResults: 10, rating: RATINGS[0]
+
+export function useGifs ({ keyword = null, pageResults = 10, rating = RATINGS[0] } = {}) {
   const [loading, setLoading] = useState(false);
   const [loadingNextPage, setLoadingNextPage] = useState(false);
   const [page, setPage] = useState(INITIAL_PAGE);
@@ -16,14 +19,15 @@ export function useGifs ({ keyword, pageResults } = { keyword: null, pageResults
   useEffect(function () {
     setLoading(true)
 
-    getGifs({ keyword: keywordToUse })
+    getGifs({ keyword: keywordToUse, rating })
       .then(gifs => {
         setGifs(gifs)
         setLoading(false)
         // guardamos la keyword en el localStorage
         localStorage.setItem('lastKeyword', keyword)
+        localStorage.setItem('lastRating', rating)
       })
-  }, [keyword, keywordToUse, setGifs])
+  }, [keyword, keywordToUse, rating, setGifs])
 
   useEffect(function () {
     if( page === INITIAL_PAGE ) return
@@ -32,13 +36,14 @@ export function useGifs ({ keyword, pageResults } = { keyword: null, pageResults
 
     getGifs({
       keyword: keywordToUse,
-      page
+      page,
+      rating
     })
       .then(nextGifs => {
         setGifs(prevGifs => prevGifs.concat(nextGifs));
         setLoadingNextPage(false);
       })
-  }, [keywordToUse, setGifs, page])
+  }, [keywordToUse, rating, setGifs, page])
 
   return {loading, loadingNextPage, gifs, setPage, page}
 }

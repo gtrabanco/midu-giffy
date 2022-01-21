@@ -11,11 +11,12 @@ import LazyTrendingSearches from 'components/TrendingSearches'
 //import debounce from 'lib/debounce'
 import throttle from 'lib/throttle'
 import { Helmet } from 'react-helmet-async'
+import SearchForm from 'components/SearchForm/index'
 // import {useTitle} from 'hooks/useSeo'
 
 export default function SearchResults ({ params }) {
-  const { keyword } = params
-  const { loading, gifs, setPage } = useGifs({ keyword })
+  const { keyword, rating = 'g' } = params
+  const { loading, gifs, setPage } = useGifs({ keyword, rating })
   const externalRef = useRef();
   const { isNearScreen } = useNearScreen({
     externalRef: loading ? null : externalRef,
@@ -55,6 +56,7 @@ export default function SearchResults ({ params }) {
         <h3 className="App-title">
           {decodeURI(keyword)}
         </h3>
+        <SearchForm initialKeyword={keyword} initialRating={rating} />
         <ListOfGifs gifs={gifs} />
         <div id="viewer" ref={externalRef}></div>
         <div className="App-category">

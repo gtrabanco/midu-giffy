@@ -1,5 +1,4 @@
-import React, { useCallback } from "react"
-import { useLocation } from "wouter"
+import React from "react"
 
 import {useGifs} from 'hooks/useGifs'
 
@@ -14,18 +13,18 @@ import { Helmet } from "react-helmet-async"
 
 export default function Home() {
   const {gifs} = useGifs()
-  const [, pushLocation] = useLocation()
 
-  const handleSubmit = useCallback(({keyword}) => {
-    pushLocation(`/search/${keyword}`);
-  }, [pushLocation]);
+  const initialKeyword = localStorage.getItem('lastKeyword') && localStorage.getItem('lastKeyword') !== 'null' ?
+    localStorage.getItem('lastKeyword'):
+    '';
+  const initialRating = localStorage.getItem('lastRating') ?? 'G';
 
   return (
     <>
       <Helmet>
         <title>Giffy | Home</title>
       </Helmet>
-      <SearchForm onSubmit={handleSubmit} />
+      <SearchForm initialKeyword={initialKeyword} initialRating={initialRating} />
       <div className="App-main">
         <div className="App-results">
           <h3 className="App-title">Última búsqueda</h3>
