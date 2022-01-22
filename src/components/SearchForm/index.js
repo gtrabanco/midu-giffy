@@ -3,6 +3,8 @@ import { useLocation } from "wouter"
 import { RATINGS } from 'services/getGifs';
 import { useSearchForm } from 'hooks/useSearchForm'
 
+import css from './style.css'
+
 function SearchForm({initialKeyword = '', initialRating = RATINGS[0]}) {
   const {keyword, rating, times, updateKeyword, updateRating } = useSearchForm({initialKeyword, initialRating})
 
@@ -18,15 +20,20 @@ function SearchForm({initialKeyword = '', initialRating = RATINGS[0]}) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={css["c-search"]}>
         <button>Buscar</button>
-        <input placeholder="Search a gif here..." onChange={handleUpdateKeyword} type='text' value={keyword} />
-        <select onChange={handleUpdateRating} value={rating}>
+        <input
+          className={css["c-search-input"]}
+          placeholder="Search a gif here..."
+          onChange={handleUpdateKeyword}
+          type='text'
+          value={keyword}
+        />
+        <select className={css["c-search-list"]} onChange={handleUpdateRating} value={rating}>
           <option disabled>Rating type</option>
           {RATINGS.map(rating => <option key={rating}>{rating.toUpperCase()}</option>)}
         </select>
       </form>
-      <small>{times}</small>
     </>
   )
 }
