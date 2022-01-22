@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, waitForElement } from '@testing-library/react';
+import { render, waitForElement } from '@testing-library/react';
 import App from 'App';
 
 test('check gif links', async () => {

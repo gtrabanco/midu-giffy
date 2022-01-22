@@ -28,7 +28,7 @@ const reducer = (state, action) => {
     state;
 }
 
-export function useSearchForm ({ initialKeyword, initialRating}) {
+export function useSearchForm ({ initialKeyword = '', initialRating = 'g'} = {}) {
   const [state, dispatch] = useReducer(reducer, {
     keyword: decodeURIComponent(initialKeyword),
     rating: initialRating,

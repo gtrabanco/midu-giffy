@@ -14,7 +14,7 @@ function SearchForm({initialKeyword = '', initialRating = RATINGS[0]}) {
   }
 
   const handleUpdateKeyword = event => updateKeyword(event.target?.value);
-  const handleUpdateRating  = event => updateRating(event.target.value);
+  const handleUpdateRating  = event => updateRating(event.target?.value);
 
   return (
     <>
