@@ -7,6 +7,7 @@ const REDUCER_ACTIONS = {
 
 const REDUCERS = {
   [REDUCER_ACTIONS.UPDATE_KEYWORD]: (state, payload) => {
+    console.log(payload)
     return {
       ...state,
       keyword: payload,
@@ -14,6 +15,7 @@ const REDUCERS = {
     }
   },
   [REDUCER_ACTIONS.UPDATE_RATING]: (state, payload) => {
+    console.log(payload)
     return {
       ...state,
       rating: payload

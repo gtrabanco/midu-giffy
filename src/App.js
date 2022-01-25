@@ -1,52 +1,57 @@
-import React, { Suspense } from 'react';
-import { Link, Route } from "wouter"
+//Packages
+import React, { Suspense } from "react";
+import { Link, Route } from "wouter";
+import { HelmetProvider } from "react-helmet-async";
 
-import {GifsContextProvider} from 'context/GifsContext'
-import Pepito from 'context/StaticContext'
+//Context
+import { GifsContextProvider } from "context/GifsContext";
+import { UserContextProvider } from "context/UserContext";
 
-import SearchResults from 'pages/SearchResults'
-import Detail from 'pages/Detail'
-import e404 from 'pages/e404';
+//Hooks
+//Components
+import Header from "components/Header";
 
-import './App.css'
-import { HelmetProvider } from 'react-helmet-async';
+//Pages
+import SearchResults from "pages/SearchResults";
+import Detail from "pages/Detail";
+import e404 from "pages/e404";
+import LoginPage from "pages/LoginPage";
+import LogoutPage from "pages/LogoutPage";
 
-const HomePage = React.lazy(() => import('pages/Home'))
+//Other
+import "./App.css";
+
+//Lazy loading
+const HomePage = React.lazy(() => import("pages/Home"));
 
 export default function App() {
   return (
-  <HelmetProvider>
-    <Pepito.Provider value={{name: 'midudev',
-    suscribeteAlCanal: true}}>
+    <HelmetProvider>
+      <UserContextProvider>
         <div className="App">
           <section className="App-content">
+            <Header />
             <Link to="/">
               <figure className="App-logo">
-                <img alt='Giffy logo' src='/logo.png' />
+                <img alt="Giffy logo" src="/logo.png" />
               </figure>
             </Link>
             <GifsContextProvider>
               <Suspense fallback={null}>
-                <Route
-                  component={HomePage}
-                  path="/"
-                />
+                <Route component={HomePage} path="/" />
               </Suspense>
               <Route
                 component={SearchResults}
-                path="/search/:keyword/:rating?"  />
-              <Route
-                component={Detail}
-                path="/gif/:id"
+                path="/search/:keyword/:rating?"
               />
-              <Route
-                component={e404}
-                path="/404"
-              />
+              <Route component={Detail} path="/gif/:id" />
+              <Route component={LoginPage} path="/login" />
+              <Route component={LogoutPage} path="/logout" />
+              <Route component={e404} path="/404" />
             </GifsContextProvider>
           </section>
         </div>
-      </Pepito.Provider>
+      </UserContextProvider>
     </HelmetProvider>
-  )
+  );
 }

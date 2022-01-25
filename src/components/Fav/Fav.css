@@ -1,0 +1,17 @@
+.gf-Fav {
+  background: rgba(255, 172, 172, 0.3);
+  border: 0;
+  border-radius: 1.5rem;
+  vertical-align: middle;
+}
+
+.gf-Fav:hover {
+  background: rgba(255, 172, 172, 0.8);
+}
+
+.gf-Fav span {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-right: 0.1rem;
+}

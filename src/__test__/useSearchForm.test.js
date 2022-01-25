@@ -1,5 +1,5 @@
 import { act, renderHook  } from "@testing-library/react-hooks";
-import { useSearchForm } from "hooks/useSearchForm";
+import { useSearchForm } from "components/SearchForm/hooks/useSearchForm";
 
 const setup = (params) => {
   const { result } = renderHook(() => useSearchForm(params))
