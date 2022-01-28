@@ -21,7 +21,7 @@ export default function getFavs({ jwt }) {
       }
     )
     .then((res) => {
-      const { favs } = res.json();
+      const { favs } = res ?? {favs: []};
       return favs;
     });
 }

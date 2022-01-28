@@ -3,36 +3,45 @@ import { useLocation } from "wouter";
 
 import useUser from "hooks/useUser";
 
-export default function Login() {
+import "./Login.css";
+import isFunction from "../../../node_modules/lodash/isFunction";
+
+export default function Login({onLogin = null}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [, navigate] = useLocation();
-  const { isLogged, login, isLoading, isLogginError } = useUser({username, password});
+  const { isLogged, login, isLoading, isLogginError } = useUser({
+    username,
+    password,
+  });
 
   useEffect(() => {
-    if (isLogged === true) navigate('/')
-  }, [isLogged, navigate])
+    if (isLogged === true) {
+      navigate("/");
+      isFunction(onLogin) && onLogin();
+    };
+  }, [isLogged, navigate, onLogin]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // alert(`${username} ${password}`)
     try {
-      login({username, password});
-    } catch(e) {
-      console.log(e)
+      login({ username, password });
+    } catch (e) {
+      console.log(e);
     }
-    
+
     //navigate("/");
   };
 
   return (
     <>
-      <h2>Login Form</h2>
       {isLoading && <strong>Checking credentials</strong>}
-      
-      {!isLoading &&
-        <form onSubmit={handleSubmit}>
+
+      {!isLoading && (
+        <form onSubmit={handleSubmit} className="form">
           <label>
+            Username
             <input
               type="text"
               name="username"
@@ -42,6 +51,7 @@ export default function Login() {
             />
           </label>
           <label>
+            Password
             <input
               type="password"
               name="pasword"
@@ -52,8 +62,8 @@ export default function Login() {
           </label>
           <button>Login</button>
         </form>
-      }
-      { isLogginError && <strong>Credentials are not valid</strong>}
+      )}
+      {isLogginError && <strong>Credentials are not valid</strong>}
     </>
   );
 }

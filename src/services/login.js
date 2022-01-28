@@ -19,16 +19,16 @@ export default function login({ username, password }) {
 
   return fetch(`${API_ENDPOING}/login`, request)
     .then(
-      (res) => {
-        if (!res.ok) throw new Error("Invalid response");
-        return res.json();
+      async (res) => {
+        if (!Boolean(res.ok)) throw new Error("Invalid response");
+        return await res.json();
       },
       (reason) => {
         return {};
       }
     )
     .then((res) => {
-      const { jwt } = res.json();
+      const { jwt } = res;
       return jwt;
     });
 }

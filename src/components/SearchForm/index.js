@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { RATINGS } from "services/getGifs";
 import { useSearchForm } from "components/SearchForm/hooks/useSearchForm";
 
-import css from "./style.css";
+import css from "./SearchForm.css";
 
 function SearchForm({ initialKeyword = "", initialRating = RATINGS[0] }) {
   const { keyword, rating, updateKeyword, updateRating } = useSearchForm({
@@ -18,12 +18,17 @@ function SearchForm({ initialKeyword = "", initialRating = RATINGS[0] }) {
     pushLocation(`/search/${keyword}/${rating}`);
   };
 
-  const handleUpdateKeyword = (event) => updateKeyword(event.target.value);
-  const handleUpdateRating = (event) => updateRating(event.target.value);
+  const handleUpdateKeyword = (event) => {
+    updateKeyword(event.target.value);
+  };
+
+  const handleUpdateRating = (event) => {
+    updateRating(event.target.value);
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={css["c-search"]}>
         <button>Buscar</button>
         <input
           className={css["c-search-input"]}
@@ -33,15 +38,14 @@ function SearchForm({ initialKeyword = "", initialRating = RATINGS[0] }) {
           value={keyword}
         />
         <select
+          className={css["c-search-list"]}
           onChange={handleUpdateRating}
           value={rating}
         >
           <option disabled>Rating type</option>
-          {
-            RATINGS.map((rating) => (
-              <option key={rating}>{rating.toUpperCase()}</option>
-            ))
-          }
+          {RATINGS.map((rating) => (
+            <option key={rating}>{rating.toUpperCase()}</option>
+          ))}
         </select>
       </form>
     </>
