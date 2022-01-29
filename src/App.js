@@ -17,6 +17,7 @@ import Detail from "pages/Detail";
 import e404 from "pages/e404";
 import LoginPage from "pages/LoginPage";
 import LogoutPage from "pages/LogoutPage";
+import RegisterPage from "pages/RegisterPage";
 
 //Other
 import "./App.css";
@@ -46,6 +47,8 @@ export default function App() {
               />
               <Route component={Detail} path="/gif/:id" />
               <Route component={LoginPage} path="/login" />
+              <Route component={RegisterPage} path="/register" />
+              <Route component={RegisterPage} path="/signup" />
               <Route component={LogoutPage} path="/logout" />
               <Route component={e404} path="/404" />
             </GifsContextProvider>

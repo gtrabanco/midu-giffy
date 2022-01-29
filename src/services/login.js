@@ -1,14 +1,6 @@
 import { API_ENDPOING } from "./getEndpoint";
 
 export default function login({ username, password }) {
-  // const request = {
-  //   body: JSON.stringify({ username, password }),
-  //   method: "POST",
-  //   headers: {
-  //     //Authorization: { jwt },
-  //     "Content-type": "application/json",
-  //   },
-  // };
   const request = {
     body: JSON.stringify({ username, password }),
     method: "POST",
