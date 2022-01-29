@@ -1,47 +1,37 @@
-import React, {useEffect, useState} from "react"
-import { Link, useLocation } from "wouter"
-import getGifs from '../../services/getGifs'
-import ListOfGifs from '../../components/ListOfGifs'
-import Category from '../../components/Category'
-import {useGifs} from '../../hooks/useGifs'
+import React from "react"
 
-const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
+import {useGifs} from 'hooks/useGifs'
+
+import ListOfGifs from 'components/ListOfGifs'
+import LazyTrendingSearches from "components/TrendingSearches"
+import SearchForm from "components/SearchForm/index"
+
+import './style.css'
+import { Helmet } from "react-helmet-async"
+
+//const POPULAR_GIFS = ["Matrix", "Venezuela", "Chile", "Colombia", "Ecuador"]
 
 export default function Home() {
-  const [keyword, setKeyword] = useState('')
-  const [path, pushLocation] = useLocation()
-  const {loading, gifs} = useGifs()
+  const {gifs} = useGifs()
 
-  const handleSubmit = evt => {
-    evt.preventDefault()
-    // navegar a otra ruta
-    pushLocation(`/search/${keyword}`)
-  }
-
-  const handleChange = evt => {
-    setKeyword(evt.target.value)
-  }
+  const initialKeyword = localStorage.getItem('lastKeyword') && localStorage.getItem('lastKeyword') !== 'null' ?
+    localStorage.getItem('lastKeyword'):
+    '';
+  const initialRating = localStorage.getItem('lastRating') ?? 'G';
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <button>Buscar</button>
-        <input placeholder="Search a gif here..." onChange={handleChange} type='text' value={keyword} />
-      </form>
+      <Helmet>
+        <title>Giffy | Home</title>
+      </Helmet>
+      <SearchForm initialKeyword={initialKeyword} initialRating={initialRating} />
       <div className="App-main">
         <div className="App-results">
           <h3 className="App-title">Última búsqueda</h3>
           <ListOfGifs gifs={gifs} />
         </div>
         <div className="App-category">
-          <Category
-            name="Categorias populares"
-            options={POPULAR_GIFS}
-          />
-          <Category
-            name="Mascotas"
-            options={['Perros', 'Gatos', 'Hamster']}
-          />
+          <LazyTrendingSearches />
         </div>
       </div>
     </>

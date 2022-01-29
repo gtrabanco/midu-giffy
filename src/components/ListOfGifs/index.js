@@ -1,8 +1,8 @@
 import React from 'react'
-import Gif from '../Gif'
+import Gif from 'components/Gif'
 import './styles.css'
 
-export default function ListOfGifs ({gifs}) {
+function ListOfGifs ({gifs}) {
   return <div className='ListOfGifs'>
     {
       gifs.map(({id, title, url}) =>
@@ -16,3 +16,5 @@ export default function ListOfGifs ({gifs}) {
     }
   </div>
 }
+
+export default React.memo(ListOfGifs);

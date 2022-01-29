@@ -1,4 +1,6 @@
-const apiKey = 'dIJrma20pSU6ymMwWnDbiaT7NFHeAGVa'
+import { API_KEY, API_URL } from "./settings"
+
+export const RATINGS = [ 'g', 'pg', 'pg-13', 'r' ];
 
 const fromApiResponseToGifs = apiResponse => {
   const {data = []} = apiResponse
@@ -13,8 +15,12 @@ const fromApiResponseToGifs = apiResponse => {
   return []
 }
 
-export default function getGifs ({limit = 25, keyword = 'morty'} = {}) {
-  const apiURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${keyword}&limit=${limit}&offset=0&rating=G&lang=en`
+export default function getGifs ({limit = 5, keyword = 'javascript', page = 0, rating = RATINGS[0]} = {}) {
+  if (RATINGS.indexOf(rating) === -1) {
+    rating = RATINGS[0];
+  }
+  const offset = page * limit;
+  const apiURL = `${API_URL}/gifs/search?api_key=${API_KEY}&q=${keyword}&limit=${limit}&offset=${offset}&rating=${rating}&lang=es`
 
   return fetch(apiURL)
     .then(res => res.json())
