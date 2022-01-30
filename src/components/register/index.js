@@ -1,28 +1,8 @@
 import React, { useState } from "react";
-import { useForm, ErrorMessage } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message"
 
 import registerService from "services/register";
-
-const initialValues = {
-  username: "",
-  password: "",
-};
-
-const validateFields = (values) => {
-  const errors = {};
-
-  if (!values.username) {
-    errors.username = "Required username";
-  } else if (values.username?.length < 5) {
-    errors.username = "Username must have at least 5 characters";
-  }
-
-  if (!values.password) {
-    errors.password = "Required password";
-  } else if (values.password?.length <= 5) {
-    errors.password = "Password length is less than 6";
-  }
-};
 
 export default function Register() {
   const { handleSubmit, register, errors } = useForm();
@@ -41,7 +21,7 @@ export default function Register() {
     return (
       <>
         <h2>
-          You have been registered{" "}
+          You have been registered
           <span role="img" aria-label="sucessfully">
             ✅
           </span>
@@ -60,7 +40,7 @@ export default function Register() {
             name="username"
             placeholder="Username..."
             ref={register({
-              required: 'Username is required',
+              required: "Username is required",
               minLength: {
                 value: 4,
                 message: "User must have at least 4 characters.",
@@ -77,7 +57,7 @@ export default function Register() {
             type="password"
             name="password"
             placeholder="Password..."
-            ref={register({ required: 'You can not login without a password' })}
+            ref={register({ required: "You can not login without a password" })}
           />
         </label>
         <ErrorMessage errors={errors} name="password">
